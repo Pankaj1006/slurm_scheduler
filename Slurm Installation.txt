@@ -1,10 +1,12 @@
-**********************************
+***************************************
 	  Slurm Installation
-__________________________________
+_______________________________________
 
 3 Vms -> 1 master , 2 compute nodes
-CentOS Installation type : minimal
-------------------------
+{Note: In Vmware ESXI (1 core = 1 CPU)and Virtualized Hardware Configuration taken is 8 CPUs and cores per socket 4 therefore number of Socket = 2}
+
+OS : CentOS 7 Installation type : minimal
+----------------------------------
 
 Pre-requisite -> Stop and disable firewall daemon and stop selinux 
   
@@ -28,7 +30,7 @@ On c1 and c2 (ensure also on master)
 
 # yum install openssh* -y
 
-# yum install nfs-utils -y
+# yum install nfs-utils* -y
 
 # yum install chrony -y 
 
@@ -208,7 +210,7 @@ On nodes
 on all nodes and master
 ------------------------
 
-# export SLURMUSER=992
+# export SLURMUSER=1500
 # groupadd -g $SLURMUSER slurm
 # useradd  -m -c "SLURM workload manager" -d /var/lib/slurm -u $SLURMUSER -g slurm  -s /bin/bash slurm
 
@@ -285,3 +287,26 @@ Then Check sinfo command on master
 Submit the Job
 --------------
 # srun -N1 /bin/hostname
+
+# srun -N1 
+
+Changing state of node
+----------------------
+# scontrol update nodename=c1 state=idle
+
+Some More Commands
+------------------
+
+# squeue
+
+# scancel <JOB-ID>
+
+# scontrol show node
+
+# scontrol show part
+
+# scontrol show <JOB-ID>
+
+# scontrol show job<space>job.no
+
+# sbatch script.sh
